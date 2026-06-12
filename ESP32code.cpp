@@ -52,9 +52,6 @@ const int LED_BLUE  = 4;
 // =========================
 int lastDirection = 0;
 
-unsigned long turnStartTime = 0;
-bool turning = false;
-
 void setup()
 {
   Serial.begin(115200);
@@ -161,23 +158,7 @@ setASLAutonomous();
 if (s5 == 0)
 {
     lastDirection = -1;
-
-    if (!turning)
-    {
-        turning = true;
-        turnStartTime = millis();
-    }
-
     spinLeft();
-
-    // 超過0.7秒還沒離開
-    if (millis() - turnStartTime > 700)
-    {
-        move(100,100);
-        delay(150);
-
-        turning = false;
-    }
 }
 
 // =========================
@@ -186,22 +167,7 @@ if (s5 == 0)
 else if (s1 == 0)
 {
     lastDirection = 1;
-
-    if (!turning)
-    {
-        turning = true;
-        turnStartTime = millis();
-    }
-
     spinRight();
-
-    if (millis() - turnStartTime > 700)
-    {
-        move(100,100);
-        delay(150);
-
-        turning = false;
-    }
 }
 
 // =========================
